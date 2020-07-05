@@ -31,8 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'get_token.apps.GetTokenConfig',
-    'get_widget.apps.GetWidgetConfig',
+    'ig_widget_app.apps.IgWidgetAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

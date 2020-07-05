@@ -19,7 +19,5 @@ from django.urls import include, path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("get_media/", include("get_media.urls")),
-    path("get_token/", include("get_token.urls")),
-    path("get_widget/", include("get_widget.urls")),
+    path("ig_widget_app/", include("ig_widget_app.urls")),
 ]
