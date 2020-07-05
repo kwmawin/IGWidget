@@ -1,6 +1,9 @@
 venv
+env.bash
+.vscode
 .DS_Store
 **__pycache__
 **node_modules
 **package-lock.json
 bundle.js
+**sqlite3
