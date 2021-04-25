@@ -9,3 +9,5 @@
 3. `source app_get_token.bash` to store token from IG to DB.
 4. `source app_get_media.bash` to request media from IG and store to DB.
 5. `source app_get_widget.bash` will now return the HTML of widget.
+
+http://127.0.0.1:8000/ig_widget_app/ig_auth

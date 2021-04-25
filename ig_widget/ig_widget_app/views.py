@@ -1,12 +1,44 @@
+import os
 from datetime import datetime
 
 import requests
 from django.http import JsonResponse,HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import CharField
 
 from .models import IGUser
+
+def ig_auth(request):
+    return render(request, 'ig_auth/index.html')
+
+def get_auth_code(request):
+    auth_url = 'https://api.instagram.com/oauth/authorize?client_id=%s&redirect_uri=%s&scope=user_profile,user_media&response_type=code' %(os.environ.get('INSTAGRAM_APP_ID'), os.environ.get('SITE'))
+    return redirect(auth_url)
+
+def get_token_and_user(request):
+    code = None
+    try:
+        if request.method == 'GET':
+            code = request.POST['code']
+    except:
+        pass
+    if code is None:
+        return HttpResponse('Unauthorized: no code', status=401)
+
+    response = requests.post(
+        url='https://api.instagram.com/oauth/access_token',
+        params={
+            'client_id': os.environ.get('INSTAGRAM_APP_ID'),
+            'client_secret': os.environ.get('INSTAGRAM_APP_SECRET'),
+            'grant_type': 'authorization_code',
+            'redirect_uri': 'https://kwmawin.github.io/', # FIXME
+            'code': code,
+        },
+    )
+    response_json = response.json()
+    return JsonResponse(response_json)
+
 
 # FIXME: Temporarily using csrf_exempt before the access token can be get automatically
 @csrf_exempt
